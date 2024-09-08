@@ -1,8 +1,8 @@
 ﻿using FabricCli.Command;
-using FabricCli.Factories;
+using FabricCli.Factory;
 using FabricCli.Service;
 using Microsoft.Extensions.DependencyInjection;
-
+using System.Reflection;
 
 namespace FabricCli.Configuration
 {
@@ -12,6 +12,7 @@ namespace FabricCli.Configuration
         {
             var services = new ServiceCollection();
 
+            
             services.AddSingleton<FabricClientFactory>();
             services.AddSingleton(provider =>
             {
@@ -20,7 +21,23 @@ namespace FabricCli.Configuration
             });
             services.AddSingleton<IFabricService, FabricService>();
 
+            
+            RegisterCommandConfigurators(services);
+
             return services;
+        }
+
+        private static void RegisterCommandConfigurators(IServiceCollection services)
+        {
+            var commandConfiguratorType = typeof(ICommandConfigurator);
+            var implementations = Assembly.GetExecutingAssembly()
+                                          .GetTypes()
+                                          .Where(t => commandConfiguratorType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
+
+            foreach (var implementation in implementations)
+            {
+                services.AddSingleton(commandConfiguratorType, implementation);
+            }
         }
     }
 }

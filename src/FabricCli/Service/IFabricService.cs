@@ -1,14 +1,13 @@
-﻿using FabricCli.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Azure;
+
+using Microsoft.Fabric.Api.Core.Models;
+using Microsoft.Fabric.Api.Utils;
 
 namespace FabricCli.Service
 {
     public interface IFabricService
     {
-        IEnumerable<FabricWorkspace> GetWorkspaces();
+        PageableResponse<Workspace> GetWorkspaces();
+        Response<Workspace> CreateWorkspace(string name);
     }
 }

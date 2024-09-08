@@ -1,10 +1,7 @@
-﻿using FabricCli.Model;
+﻿using Azure;
 using Microsoft.Fabric.Api;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Fabric.Api.Core.Models;
+using Microsoft.Fabric.Api.Utils;
 
 namespace FabricCli.Service
 {
@@ -17,16 +14,18 @@ namespace FabricCli.Service
             _fabricClient = fabricClient;
         }
 
-        public IEnumerable<FabricWorkspace> GetWorkspaces()
+        public Response<Workspace> CreateWorkspace(string name)
         {
-            // Use the FabricClient to fetch items and map them to FabricItem
-            return _fabricClient.Core.Workspaces.ListWorkspaces()
-                .Select(workspace => new FabricWorkspace
-                {
-                    DisplayName = workspace.DisplayName,
-                    CapacityId = workspace.CapacityId
-                })
-                .ToList();
+            CreateWorkspaceRequest request = new CreateWorkspaceRequest(name);
+            Response<Workspace> response = _fabricClient.Core.Workspaces.CreateWorkspace(request);
+            return response;
         }
+
+        public PageableResponse<Workspace> GetWorkspaces()
+        {
+            var response = _fabricClient.Core.Workspaces.ListWorkspaces();
+            return response;
+        }
+        
     }
 }

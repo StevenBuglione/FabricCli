@@ -1,20 +1,17 @@
 ﻿using FabricCli.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using Spectre.Console.Cli;
 using Spectre.Console;
+using Spectre.Console.Cli;
+using System.ComponentModel;
 
-namespace FabricCli.Command
+
+
+namespace FabricCli.Command.Workspace
 {
-    public class ListWorkspacesCommand : Command<ListWorkspacesCommand.Settings>
+    public class List : Command<List.Settings>
     {
         private readonly IFabricService _fabricService;
 
-        public ListWorkspacesCommand(IFabricService fabricService)
+        public List(IFabricService fabricService)
         {
             _fabricService = fabricService;
         }
@@ -30,14 +27,14 @@ namespace FabricCli.Command
         {
             var workspaces = _fabricService.GetWorkspaces();
 
+            
             AnsiConsole.MarkupLine($"[bold yellow]Number of workspaces:[/] {workspaces.Count()}");
             foreach (var workspace in workspaces)
             {
-                AnsiConsole.MarkupLine($"[green]Workspace:[/] {workspace.DisplayName}, [blue]Capacity ID:[/] {workspace.CapacityId}");
+                AnsiConsole.MarkupLine($"[green]Workspace:[/] {workspace.DisplayName}, [blue]Workspace ID:[/] {workspace.Id}");
             }
 
-            return 0;  // Exit code 0 means success
+            return 0;  
         }
-        
     }
 }
