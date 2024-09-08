@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using Spectre.Console.Cli;
+using Spectre.Console;
 
 namespace FabricCli.Command
 {
-    public class ListWorkspacesCommand : ICommand
+    public class ListWorkspacesCommand : Command<ListWorkspacesCommand.Settings>
     {
         private readonly IFabricService _fabricService;
 
@@ -16,14 +19,25 @@ namespace FabricCli.Command
             _fabricService = fabricService;
         }
 
-        public void Execute()
+        public class Settings : CommandSettings
+        {
+            [CommandOption("-l|--list")]
+            [Description("List all available workspaces.")]
+            public bool List { get; set; }
+        }
+
+        public override int Execute(CommandContext context, Settings settings)
         {
             var workspaces = _fabricService.GetWorkspaces();
-            Console.WriteLine("Number of workspaces: " + workspaces.Count());
+
+            AnsiConsole.MarkupLine($"[bold yellow]Number of workspaces:[/] {workspaces.Count()}");
             foreach (var workspace in workspaces)
             {
-                Console.WriteLine($"Workspace: {workspace.DisplayName}, Capacity ID: {workspace.CapacityId}");
+                AnsiConsole.MarkupLine($"[green]Workspace:[/] {workspace.DisplayName}, [blue]Capacity ID:[/] {workspace.CapacityId}");
             }
+
+            return 0;  // Exit code 0 means success
         }
+        
     }
 }
