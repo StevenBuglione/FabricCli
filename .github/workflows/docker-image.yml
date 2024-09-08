@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: fabric-cli
   
 jobs:
     build-and-push-image:
@@ -32,9 +32,12 @@ jobs:
 
         - name: Extract metadata (tags, labels) for Docker
           id: meta
-          uses: docker/metadata-action@v3
+          uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
           with:
-            images: ${{ env.REGISTRY }}/fabric
+            images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            tags: |
+              type=ref,event=branch,pattern=main
+              type=raw,value=latest
 
         - name: Build and push Docker image
           id: push
