@@ -9,3 +9,5 @@ Then you must set the following environment variables:
 AZURE_TENANT_ID 
 AZURE_CLIENT_ID
 AZURE_CLIENT_SECRET
+
+Adding develop branch 
