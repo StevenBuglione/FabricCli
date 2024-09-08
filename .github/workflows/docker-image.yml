@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: fabric-cli
+  IMAGE_NAME: ${{ github.repository }}
   
 jobs:
     build-and-push-image:
@@ -34,9 +34,6 @@ jobs:
           uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
           with:
             images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            tags: |
-              type=ref,event=branch,pattern=main
-              type=raw,value=latest
 
         - name: Build and push Docker image
           id: push
