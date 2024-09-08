@@ -34,9 +34,11 @@ jobs:
           id: meta
           uses: docker/metadata-action@v3
           with:
-            images: ghcr.io/steven-buglione/fabric
+            images: ${{ env.REGISTRY }}/fabric
             tags: |
-              type=ref,event=branch,branch=main,tag=latest
+              type=ref,event=branch,pattern=main
+              type=semver
+              type=raw,value=latest  # Ensure the latest tag is added
 
         - name: Build and push Docker image
           id: push
