@@ -1,4 +1,4 @@
-# FabricCli
+# fabric-cli
 
 In Order For FabricCli to work, the following is required: 
 
