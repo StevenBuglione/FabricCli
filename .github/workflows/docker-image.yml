@@ -35,10 +35,6 @@ jobs:
           uses: docker/metadata-action@v3
           with:
             images: ${{ env.REGISTRY }}/fabric
-            tags: |
-              type=ref,event=branch,pattern=main
-              type=semver
-              type=raw,value=latest  # Ensure the latest tag is added
 
         - name: Build and push Docker image
           id: push
