@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "FabricCli": {
+      "commandName": "Project"
+    }
+  }
+}
