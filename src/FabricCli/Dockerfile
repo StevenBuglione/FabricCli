@@ -10,11 +10,9 @@ RUN dotnet publish "./FabricCli.csproj" -c Release -o /app/publish /p:PublishSin
 FROM mcr.microsoft.com/dotnet/runtime-deps:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-COPY entrypoint.sh /app/entrypoint.sh
 
 # Make sure the binary is executable
-RUN chmod +x /app/entrypoint.sh
 RUN chmod +x /app/fabric
 
-# Set the entrypoint to the shell script
-ENTRYPOINT ["/app/entrypoint.sh"] 
+# Set the entrypoint to the full path
+ENTRYPOINT ["/app/fabric"] 
