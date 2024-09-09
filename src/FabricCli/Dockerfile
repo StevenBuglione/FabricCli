@@ -15,4 +15,4 @@ COPY --from=build /app/publish .
 RUN chmod +x /app/fabric
 
 # Set the entrypoint to the full path
-ENTRYPOINT ["/app/fabric"]
+ENTRYPOINT ["/app/fabric"] 
