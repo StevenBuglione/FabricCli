@@ -1,4 +1,4 @@
-# FabricCli
+# fabric-cli
 
 In Order For FabricCli to work, the following is required: 
 
@@ -11,3 +11,5 @@ AZURE_CLIENT_ID
 AZURE_CLIENT_SECRET
 
 Adding develop branch 
+
+update
