@@ -21,10 +21,6 @@ namespace FabricCli.Command.Workspace
             [CommandOption("-l|--list")]
             [Description("List all available workspaces.")]
             public bool List { get; set; }
-
-            [CommandArgument(0, "[filter]")]
-            [Description("An optional filter to list specific workspaces.")]
-            public string? Filter { get; set; }
         }
 
         public override int Execute(CommandContext context, Settings settings)
