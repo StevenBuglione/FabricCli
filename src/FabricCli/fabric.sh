@@ -17,7 +17,7 @@ docker run --rm \
   -e AZURE_TENANT_ID="$AZURE_TENANT_ID" \
   -e AZURE_CLIENT_ID="$AZURE_CLIENT_ID" \
   -e AZURE_CLIENT_SECRET="$AZURE_CLIENT_SECRET" \
-  sbuglione/fabric "$@"
+  ghcr.io/stevenbuglione/fabric-cli:release "$@"
 
 
 
