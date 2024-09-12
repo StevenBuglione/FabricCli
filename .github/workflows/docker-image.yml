@@ -2,7 +2,7 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: ['release']
+    branches: ['2.0.0']
 
 env:
   REGISTRY: ghcr.io
@@ -42,7 +42,7 @@ jobs:
             context: ./src/FabricCli
             file: ./src/FabricCli/Dockerfile
             push: true
-            tags: ${{ steps.meta.outputs.tags }}
+            tags: ghcr.io/stevenbuglione/fabric-cli:2.0.0
             labels: ${{ steps.meta.outputs.labels }}
 
         - name: Generate artifact attestation

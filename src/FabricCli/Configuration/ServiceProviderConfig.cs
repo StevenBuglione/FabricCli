@@ -17,7 +17,7 @@ namespace FabricCli.Configuration
             services.AddSingleton(provider =>
             {
                 var factory = provider.GetRequiredService<FabricClientFactory>();
-                return factory.CreateFabricClient();
+                return factory.CreateUsernamePasswordFabricClient();
             });
             services.AddSingleton<IFabricService, FabricService>();
 
